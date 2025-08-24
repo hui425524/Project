@@ -1,0 +1,339 @@
+:root {
+    --container: 1440px;
+    --gutter: 24px;
+    --accent: #ff6600;
+    --band-h: 220px;
+    /* 黑色資訊帶高度 */
+    --map-w: 820px;
+    /* 地圖卡片最大寬度 */
+    --radius: 14px;
+    /* 通用圓角 */
+}
+
+.container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+
+body {
+    margin: 0;
+    font-family: 'Microsoft JhengHei', sans-serif;
+    background-color: #111;
+    color: white;
+}
+
+
+/* --------------------共用區---------------*/
+
+
+
+#topbar {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    background-color: black;
+    /* 
+    color: white; */
+    padding: 20px 40px;
+    font-size: 18px;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    position: fixed;
+
+
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+
+    padding: 5px 15px;
+    color: white;
+
+}
+
+.navigation ul {
+
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    /* text-align: center;
+    margin: 0 20px;
+    text-decoration: none;
+    
+     */
+
+
+
+}
+
+.navigation a {
+
+    color: white;
+    transition: all 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+
+
+}
+
+a:hover {
+    color: #ff6600;
+}
+
+.title h2 {
+   
+
+    color: #fff;
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    letter-spacing: .1em;
+    margin: 0;
+    
+}
+
+
+
+
+
+
+.page-title {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    margin-top: 70px
+}
+
+.page-title h2 {
+    color: #fff;
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    letter-spacing: .1em;
+    margin: 0
+}
+
+/* 區塊本體：白色背景 */
+.section--hero.hero-white {
+    position: relative;
+    background: #fff;
+    padding: 48px 0;
+}
+
+/* 右上角黑色圓角與水滴（選配） */
+.hero-white .corner {
+    position: absolute;
+    right: 0;
+    top: -56px;
+    width: 280px;
+    height: 140px;
+    background: #000;
+    border-bottom-left-radius: 140px 140px;
+    display: block;
+}
+
+.hero-white .corner::after {
+    content: "";
+    position: absolute;
+    right: 24px;
+    top: 92px;
+    width: 12px;
+    height: 20px;
+    background: #000;
+    border-radius: 50% 50% 60% 60% / 60% 60% 40% 40%;
+}
+
+/* 兩欄：左圖右文 */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+/* 左：圖片 */
+.hero-photo img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+}
+
+/* 右：文字卡（白底＋灰邊框 = 你圖中的紅框位置） */
+.hero-text {
+    position: relative;
+    background: #fff;
+    /* border:1.5px solid #e5e7eb; */
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.hero-text h3 {
+    margin: 0 0 12px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+}
+
+.meta {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 28px;
+    color: #444;
+}
+
+/* 右側直排「推薦路線 1」 */
+.vlabel {
+    position: absolute;
+    right: -60px;
+    top: -50px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: #9ca3af;
+    font-size: 2rem;
+
+}
+
+.vlabel em {
+    font-style: normal;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+/* RWD */
+@media (max-width:960px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .vlabel {
+        right: 12px;
+    }
+
+    .meta {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* 地圖 */
+.section--overview {
+    background: #fff;
+    color: #000;
+    padding: 56px 0 96px;
+    position: relative;
+}
+
+/* 疊放容器：同一格疊兩層（黑帶 + 地圖卡） */
+.ro-stack {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--band-h);
+    place-items: center;
+    position: relative;
+}
+
+/* 黑色資訊帶（跨全寬） */
+.ro-band {
+    grid-area: 1/1;
+    width: 100%;
+    height: var(--band-h);
+    background: #000;
+}
+
+.ro-band-inner {
+    height: 100%;
+    color: #fff;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    /* 左標題、右資訊 */
+    align-items: center;
+    gap: 28px;
+}
+
+.ro-band-inner h3 {
+    margin: 0;
+    font-size: clamp(22px, 2.2vw, 28px);
+    font-weight: 800;
+    letter-spacing: .01em;
+}
+
+.ro-meta {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 100px;
+    color: #e5e7eb;
+    line-height: 1.9;
+}
+
+/* 地圖卡片（疊在黑帶上、置中） */
+.ro-map-card {
+    grid-area: 1/1;
+    z-index: 2;
+    width: min(var(--map-w), calc(100% - 72px));
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .22);
+}
+
+.ro-map-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* RWD */
+@media (max-width: 1024px) {
+    :root {
+        --band-h: 200px;
+        --map-w: 740px;
+    }
+
+    .ro-band-inner {
+        grid-template-columns: 1fr;
+        align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --band-h: 180px;
+        --map-w: 92vw;
+    }
+
+    .ro-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .section--overview {
+        padding-bottom: 72px;
+    }
+}
