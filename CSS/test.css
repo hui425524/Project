@@ -1,69 +1,98 @@
+/* ===== Pixel-Match Patch ===== */
+:root{
+  --container: 1200px;                /* 版心與你的圖一致（1440 頁寬 → 兩側各 120px） */
+  --edge: calc((100vw - var(--container)) / 2);
+}
 
-    :root{
-      --container:1200px;
-      --gutter:24px;
-      --card-w: 480px;     /* 白框寬度 */
-      --card-shift: 40px;  /* 白框右移距離 */
-    }
+/* 上段：左圖 + 右白文 + 右上圓角 + 直排 */
+.route-hero{ padding: 64px 0 40px; background:#fff; }
+.rh-grid{
+  grid-template-columns: 700px 420px; /* 左寬右窄（更接近設計） */
+  gap: 32px;
+  align-items: center;                /* 上緣對齊就改 start */
+}
+.rh-img img{
+  height: 360px;                      /* 固定高更貼視覺 */
+  width: 100%; object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0,0,0,.18), 0 6px 18px rgba(0,0,0,.09);
+}
+.rh-text{ max-width: 420px; }
+.rh-text h3{ margin:0 0 12px; font-size:28px; font-weight:800; letter-spacing:.01em; }
+.rh-meta{ grid-template-columns:1fr 1fr; gap: 8px 28px; color:#353c45; line-height:1.9; }
 
-    body{margin:0; font-family: "Microsoft JhengHei", sans-serif; background:#fff;}
+/* 右上圓角 + 水滴（位置與大小微調） */
+.rh-corner{ right:0; top:-84px; width:360px; height:180px; border-bottom-left-radius:180px; }
+.rh-corner::after{ right:36px; top:112px; width:16px; height:26px; }
 
-    .container{max-width:var(--container); margin:0 auto; padding:0 var(--gutter);}
+/* 直排標籤緊貼「版心」右邊，不會撞螢幕 */
+.rh-vlabel{
+  right: calc(var(--edge) - 10px);
+  top:0; bottom:0;
+  display:flex; align-items:center; gap:6px;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  color:#9aa3af; font-size:18px; letter-spacing:.08em;
+}
+.rh-vlabel em{ font-style:normal; color:#606a75; font-weight:700; }
 
-    .section--hero{ position:relative; padding:48px 0; background:#fff; }
+/* 中段：黑帶 + 疊上地圖 */
+.route-overview{ padding: 40px 0 110px; background:#fff; }
+.ro-stack{ grid-template-rows: 240px; place-items: center; }
+.ro-band{ height: 240px; background:#000; }
+.ro-band-inner{ grid-template-columns: 520px auto; align-items: center; gap: 28px; color:#fff; }
+.ro-band-inner h3{ margin:0; font-weight:800; font-size:28px; }
+.ro-meta{ grid-template-columns:1fr 1fr; gap:10px 28px; color:#e6e7eb; }
 
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.2fr 1fr;
-      align-items:center;
-      gap:28px;
-      position:relative;
-    }
+/* 地圖卡更大且微往下覆蓋黑帶邊緣，強化層次 */
+.ro-map{
+  width: min(940px, calc(100% - 120px));
+  border-radius: 14px; overflow: hidden;
+  transform: translateY(14px);
+  box-shadow: 0 22px 46px rgba(0,0,0,.22), 0 8px 16px rgba(0,0,0,.12);
+  z-index: 2;
+}
 
-    /* 左欄主圖 */
-    .hero-photo{ grid-area: 1 / 1; z-index:1; }
-    .hero-photo img{
-      width:100%; aspect-ratio:16/9; object-fit:cover;
-      border-radius:12px; display:block;
-    }
+/* 下段：時間線 01/02/03 */
+.stops{ gap: 72px; position: relative; }
+.stops::before{
+  content:""; position:absolute; left:50%; top:0; transform:translateX(-50%);
+  width:2px; height:100%;
+  background: repeating-linear-gradient(#bbb 0 8px, transparent 8px 16px);
+  opacity:.6;
+}
+.stop{ display:grid; grid-template-columns: 1fr 90px 520px; gap:24px; align-items:center; }
+.stop.alt{ grid-template-columns: 520px 90px 1fr; }    /* 交錯版 */
+.stop .stop-num{ font-size:72px; font-weight:800; color:#ff6600; line-height:1; }
+.stop.img{ width:100%; border-radius:12px; display:block; }
+.stop .stop-info h4{ margin:.2em 0 .4em; font-size:24px; font-weight:800; }
+.stop .stop-info .muted{ color:#6b7280; margin:0 0 .4em; }
+/* 公里數緊貼中線並加粗底線 */
+.stop .km{
+  justify-self:center; align-self:center;
+  font-size:22px; font-weight:800;
+  border-bottom:5px solid #ff6600; padding:0 4px 2px;
+  transform: translateX(-2px);
+}
+/* 覆蓋在圖片角上的黑卡（如設計稿） */
+.mini-card{
+  position:absolute; left:-18%; bottom:12%;
+  background:#111; color:#fff; border-radius:10px;
+  padding:14px 18px; min-width:300px;
+  box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+.mini-card h5{ margin:.2em 0 .4em; font-size:16px; font-weight:700; }
+.mini-card p{ margin:0; font-size:13px; color:#d1d5db; line-height:1.6; }
 
-    /* 新增：左側白框資訊 */
-    .left-card{
-      grid-area: 1 / 1;
-      z-index:2;
-      justify-self:start;
-      align-self:end;
-      width: var(--card-w);
-      transform: translateX(var(--card-shift)) translateY(30px);
-      background:#fff;
-      border:2px solid #2563eb;   /* 藍色邊框 */
-      border-radius:12px;
-      box-shadow: 0 10px 20px rgba(0,0,0,.08);
-      padding:22px 24px;
-    }
-    .left-card h3{
-      margin:0 0 12px;
-      font-size: 24px; font-weight:800;
-    }
-    .left-card .meta{
-      list-style:none; margin:0; padding:0;
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:8px 28px; color:#374151; line-height:1.8;
-    }
-
-    /* 右側直排標籤 */
-    .vlabel{
-      grid-area: 1 / 2;
-      position:relative;
-      display:flex; align-items:center;
-      writing-mode:vertical-rl; text-orientation:mixed;
-      font-size:18px; color:#6b7280;
-    }
-    .vlabel em{ font-style:normal; font-weight:700; color:#111; }
-
-    @media (max-width:960px){
-      .hero-grid{ grid-template-columns:1fr; }
-      .left-card{ width:100%; transform:none; margin-top:16px; }
-      .vlabel{ position:absolute; right:12px; top:0; }
-    }
- 
+/* RWD */
+@media (max-width: 1024px){
+  .rh-grid{ grid-template-columns:1fr; gap:18px; }
+  .rh-text{ max-width:none; padding-right:36px; }
+  .rh-meta{ grid-template-columns:1fr; }
+  .rh-vlabel{ right:12px; }              /* 小螢幕貼畫面右邊 */
+  .ro-stack{ grid-template-rows: 200px; }
+  .ro-band-inner{ grid-template-columns:1fr; }
+  .ro-map{ width:min(760px, 92vw); transform: translateY(10px); }
+  .stop, .stop.alt{ grid-template-columns:1fr; gap:14px; }
+  .stops::before{ display:none; }
+  .stop .km{ justify-self:start; transform:none; }
+}

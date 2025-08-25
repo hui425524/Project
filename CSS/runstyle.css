@@ -1,13 +1,19 @@
 :root {
     --container: 1440px;
     --gutter: 24px;
-    --accent: #ff6600;
+    --orange: #ff6600;
     --band-h: 220px;
     /* 黑色資訊帶高度 */
     --map-w: 820px;
     /* 地圖卡片最大寬度 */
     --radius: 14px;
     /* 通用圓角 */
+    --r: 16px;
+    /* 通用圓角 */
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-6: 48px;
 }
 
 .container {
@@ -15,6 +21,9 @@
     margin: 0 auto;
     padding: 0 var(--gutter);
 }
+/* 固定導覽列時，錨點不被遮 */
+section{ scroll-margin-top: 96px; }
+html{ scroll-behavior: smooth; }
 
 body {
     margin: 0;
@@ -35,8 +44,7 @@ body {
     align-items: center;
     gap: 24px;
     background-color: black;
-    /* 
-    color: white; */
+
     padding: 20px 40px;
     font-size: 18px;
     top: 0;
@@ -44,7 +52,6 @@ body {
     width: 100%;
 
     position: fixed;
-
 
 }
 
@@ -72,14 +79,6 @@ body {
     margin: 0;
     padding: 0;
 
-    /* text-align: center;
-    margin: 0 20px;
-    text-decoration: none;
-    
-     */
-
-
-
 }
 
 .navigation a {
@@ -97,19 +96,15 @@ a:hover {
 }
 
 .title h2 {
-   
+
 
     color: #fff;
     font-size: clamp(20px, 2.2vw, 28px);
     font-weight: 700;
     letter-spacing: .1em;
     margin: 0;
-    
+
 }
-
-
-
-
 
 
 .page-title {
@@ -177,11 +172,11 @@ a:hover {
     border-radius: 12px;
 }
 
-/* 右：文字卡（白底＋灰邊框 = 你圖中的紅框位置） */
+/* 右：文字卡 */
 .hero-text {
     position: relative;
     background: #fff;
-    /* border:1.5px solid #e5e7eb; */
+   
     border-radius: 12px;
     padding: 24px;
 }
@@ -198,7 +193,7 @@ a:hover {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr ;
     gap: 8px 28px;
     color: #444;
 }
@@ -295,8 +290,8 @@ a:hover {
 }
 
 /* 地圖卡片（疊在黑帶上、置中） */
-.ro-map-card {
-    grid-area: 1/1;
+.map-card {
+    grid-area: 1/2;
     z-index: 2;
     width: min(var(--map-w), calc(100% - 72px));
     border-radius: var(--radius);
@@ -304,10 +299,10 @@ a:hover {
     box-shadow: 0 20px 40px rgba(0, 0, 0, .22);
 }
 
-.ro-map-card img {
-    display: block;
-    width: 100%;
-    height: auto;
+.map-card img {
+    display: flex;
+    width: 230px;
+    height: 461px;
 }
 
 /* RWD */
