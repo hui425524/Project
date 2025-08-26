@@ -106,10 +106,11 @@ a:hover {
 
 }
 
+/* 開始------- */
 
 .page-title {
     width: 100%;
-    height: 60px;
+    height: 160px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,74 +120,106 @@ a:hover {
 
 .page-title h2 {
     color: #fff;
-    font-size: clamp(20px, 2.2vw, 28px);
+    font-size:48px ;
+    /* clamp(20px, 2.2vw, 28px) */
     font-weight: 700;
     letter-spacing: .1em;
     margin: 0
 }
 
 /* 區塊本體：白色背景 */
-.section--hero.hero-white {
+.section-white {
     position: relative;
     background: #fff;
-    padding: 48px 0;
+    padding: 60px 0;
 }
 
-/* 右上角黑色圓角與水滴（選配） */
-.hero-white .corner {
+/* 右上角黑色水滴 */
+.drop_dark{
     position: absolute;
-    right: 0;
-    top: -56px;
-    width: 280px;
-    height: 140px;
-    background: #000;
-    border-bottom-left-radius: 140px 140px;
+    right: 30px;
+    top: -20px;
+    width: 100px;
+    height: auto; 
     display: block;
+    z-index: 2;
 }
 
-.hero-white .corner::after {
-    content: "";
-    position: absolute;
-    right: 24px;
-    top: 92px;
-    width: 12px;
-    height: 20px;
-    background: #000;
-    border-radius: 50% 50% 60% 60% / 60% 60% 40% 40%;
-}
 
 /* 兩欄：左圖右文 */
 .hero-grid {
+   
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+     /* 容器內的直接子元素會依格線擺放，能方便地做出 2 欄、3 欄等版型。 */
+
+    grid-template-columns: 1.5fr 1fr;
+    /* 定義兩欄且會等比縮放，欄寬用 fr 表示 ； 左欄 1.2 份、右欄 1 份*/
     gap: 28px;
+    /* column-gap 與 row-gap 都留28px */
+
     align-items: start;
+    /* 垂直方向的對齊方式置頂 */
+    /* 當左右兩欄高度不同時，兩邊子項目都會從上緣對齊，看起來更整齊。 */
 }
 
 /* 左：圖片 */
 .hero-photo img {
     width: 100%;
+    /* 圖片寬度撐滿它的父容器（通常就是左欄） */
     aspect-ratio: 16/9;
+    /* 指定圖片容器盒子長寬比為 16:9。搭配 width:100%，瀏覽器會自動算出高度（height）。 */
     object-fit: cover;
+    /* 當元素有固定容器盒子（這裡由 aspect-ratio 決定）時，多餘部分會被裁切且不會變形 */
     display: block;
-    border-radius: 12px;
+    /* 設為 block 可去掉底部空白，避免出現莫名小縫隙。 */
+    /* 因圖片 預設是「行內置換元素」，底部常會留一點字基線的空隙 */
+    
 }
 
-/* 右：文字卡 */
+/* 右：文字卡內文 */
 .hero-text {
     position: relative;
     background: #fff;
-   
-    border-radius: 12px;
-    padding: 24px;
-}
 
+    bottom: -200px;
+    margin-left: -50px;
+    padding: 50px;
+    font-weight: 900;
+    font-size: 20px;
+}
+/* 文字卡標題 */
 .hero-text h3 {
-    margin: 0 0 12px;
-    font-size: 24px;
+    margin: 0 10px 30px;
+    font-size: 36px;
     font-weight: 700;
     color: #000;
 }
+
+
+/* 右側直排「推薦路線 1」----------------------------------- */
+.vlabel {
+    position: absolute;
+    right: 100px;
+    top: -200px;
+    /* bottom: 0; */
+    display: flex;
+    align-items: center;
+    /* gap: 20px; */
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: #9ca3af;
+    font-size: 2rem;
+
+
+}
+
+.vlabel p {
+    writing-mode: horizontal-tb;
+    /* font-style: normal; */
+    color: #6b7280;
+    font-weight: 600;
+}
+
 
 .meta {
     list-style: none;
@@ -198,27 +231,6 @@ a:hover {
     color: #444;
 }
 
-/* 右側直排「推薦路線 1」 */
-.vlabel {
-    position: absolute;
-    right: -60px;
-    top: -50px;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    color: #9ca3af;
-    font-size: 2rem;
-
-}
-
-.vlabel em {
-    font-style: normal;
-    color: #6b7280;
-    font-weight: 600;
-}
 
 /* RWD */
 @media (max-width:960px) {
