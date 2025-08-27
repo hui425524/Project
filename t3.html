@@ -1,155 +1,334 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>路跑路線 - 精簡版</title>
-<style>
-/* ====== 單檔精簡：以 .route-scope 隔離樣式 ====== */
-.route-scope{--w:1100px;--g:24px;--ink:#111;--muted:#6b7280;--accent:#ff6600;--band:#000;--r:14px;font-family:"Noto Sans TC",system-ui,sans-serif;color:var(--ink);background:#fff}
-.route-scope *{box-sizing:border-box}
-.route-scope img{display:block;max-width:100%;height:auto}
-.container{width:min(var(--w),100% - var(--g)*2);margin-inline:auto}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>路跑路線 - Timeline 完整版</title>
+  <style>
+    /* ===== 單檔樣式，與站內隔離 ===== */
+    :root{ --w:1100px; --g:24px; --accent:#ff6600; }
+    *{ box-sizing:border-box }
+    body{ margin:0; font-family:"Noto Sans TC", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; color:#111; background:#fff; }
+    img{ display:block; max-width:100%; height:auto }
+    .container{ width:min(var(--w), 100% - var(--g)*2); margin-inline:auto }
 
-/* 頁面標題 */
-.page-title{height:60px;background:#000;display:grid;place-items:center;margin:0}
-.page-title h2{margin:0;color:#fff;font:800 clamp(20px,2.2vw,28px)/1 "Noto Sans TC";letter-spacing:.06em}
+    /* ===== 頁面標題（可留可刪） ===== */
+    .page-title{ height:60px; display:grid; place-items:center; background:#000; color:#fff; margin:0 0 24px }
+    .page-title h2{ margin:0; letter-spacing:.06em }
 
-/* 首屏：左圖 / 右文 / 右上黑角 / 直排標籤 */
-.route-hero{position:relative;padding:56px 0 44px}
-.corner{position:absolute;right:0;top:-68px;width:320px;height:160px;background:#000;border-bottom-left-radius:160px}
-.corner::after{content:"";position:absolute;right:28px;top:98px;width:14px;height:24px;background:#000;border-radius:50% 50% 60% 60%/60% 60% 40% 40%}
-.hero-grid{display:grid;grid-template-columns:minmax(0,640px) minmax(0,420px);gap:32px;align-items:start}
-.hero-img img{width:100%;height:330px;object-fit:cover;border-radius:var(--r);box-shadow:0 20px 44px rgba(0,0,0,.14),0 8px 16px rgba(0,0,0,.08)}
-.hero-info h3{margin:6px 0 12px;font-weight:800;font-size:28px;letter-spacing:.01em}
-.hero-info .meta{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;color:#353c45;line-height:1.8}
-.vlabel{position:absolute;right:calc((100vw - var(--w))/2 + 12px);top:6px;bottom:auto;height:calc(100% - 12px);display:flex;align-items:center;gap:6px;writing-mode:vertical-rl;text-orientation:mixed;color:#a3acb5;font-size:18px;letter-spacing:.08em}
-.vlabel em{font-style:normal;color:#606a75;font-weight:800}
+    /* ===== 第三部分：時間線（交錯 01/02/03） ===== */
+    #timeline{ position:relative; display:flex; flex-direction:column; row-gap:84px; margin:24px 0 96px }
+    #timeline::before{ content:""; position:absolute; left:50%; top:0; bottom:0; transform:translateX(-50%); width:2px; background:repeating-linear-gradient(#cfcfcf 0 8px, transparent 8px 16px); opacity:.7 }
 
-/* 黑底資訊帶 + 疊上地圖 */
-.route-overview{padding:36px 0 96px}
-.stack{display:grid;grid-template-rows:200px}
-.band{grid-area:1/1;background:var(--band);color:#fff}
-.band-inner{height:100%;display:flex;flex-direction:column;justify-content:center;gap:10px}
-.band-inner h3{margin:0;font:800 26px/1.2 "Noto Sans TC"}
-.band-inner .meta{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;color:#e6e7eb}
-.map-card{grid-area:1/1;justify-self:end;align-self:center;width:clamp(560px,60vw,700px);border-radius:12px;overflow:hidden;transform:translateY(6px);box-shadow:0 18px 38px rgba(0,0,0,.18),0 6px 14px rgba(0,0,0,.10)}
-.map-card img{aspect-ratio:16/9;object-fit:cover}
+    /* 三欄：左文/中線/右卡；.alt 反轉 */
+    .intro{ display:grid; grid-template-columns:1fr 36px 520px; gap:20px; align-items:center }
+    .intro.alt{ grid-template-columns:520px 36px 1fr }
 
-/* 時間線 01/02/03（交錯） */
-.timeline{position:relative;display:flex;flex-direction:column;gap:64px;margin:8px auto 84px}
-.timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;transform:translateX(-50%);width:2px;background:repeating-linear-gradient(#cfcfcf 0 8px,transparent 8px 16px)}
-.stop{display:grid;grid-template-columns:1fr 70px 520px;gap:20px;align-items:center}
-.stop.alt{grid-template-columns:520px 70px 1fr}
-.lead{margin:0;color:#222;line-height:1.9}
-.km{justify-self:center;writing-mode:vertical-rl;text-orientation:mixed;color:var(--accent);font-weight:800;letter-spacing:.04em}
-.media{position:relative}
-.media img{width:100%;border-radius:12px}
-.num{position:absolute;left:8px;top:-34px;font-size:64px;color:var(--accent);font-weight:900;line-height:1}
-.mini{position:absolute;left:10px;bottom:10px;background:#111;color:#fff;border-radius:10px;padding:12px 14px;min-width:280px;box-shadow:0 10px 20px rgba(0,0,0,.15)}
-.stop.alt .mini{left:auto;right:10px}
-.mini h5{margin:.2em 0 .4em;font-size:16px}
-.mini p{margin:0;font-size:13px;color:#d1d5db;line-height:1.6}
+    .phtxt{ margin:0; line-height:1.9; max-width:42ch }
 
-/* RWD */
+    /* 公里數：置於中欄垂直顯示 */
+    .km{ grid-column:2; justify-self:center; align-self:center; writing-mode:vertical-rl; text-orientation:mixed; color:var(--accent); font-weight:800; letter-spacing:0 }
+
+    /* 圖片區：上黑卡 + 下圖片（同寬） */
+    .media{ position:relative; display:grid; grid-template-rows:auto 220px; width:100%; filter:drop-shadow(0 10px 20px rgba(0,0,0,.12)) }
+    .media .txtArea{ grid-row:1; position:relative; width:100%; margin:0 0 8px; background:#111; color:#fff; padding:14px 18px; border-radius:10px 10px 0 0 }
+    .media img{ grid-row:2; width:100%; height:220px; object-fit:cover; border-radius:0 0 12px 12px }
+
+    /* 大號碼靠近中線（置於卡片外側） */
+    .num{ position:absolute; top:-32px; font-size:68px; font-weight:900; line-height:1; color:var(--accent) }
+    .intro .num{ right:calc(100% + 12px); left:auto }
+    .intro.alt .num{ left:calc(100% + 12px); right:auto }
+
+    /* RWD：≤1024px 單欄 */
+    @media (max-width:1024px){
+      #timeline::before{ display:none }
+      .intro,.intro.alt{ grid-template-columns:1fr; row-gap:12px }
+      .km{ writing-mode:horizontal-tb; justify-self:start }
+      .num{ top:-24px; font-size:54px }
+      .media{ grid-template-rows:auto 52vw }
+      .media img{ height:52vw; border-radius:0 0 12px 12px }
+    }
+  /* === Timeline 精準對齊修正=== */
+#timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 84px;
+    /* /* 每段的上下距離  */
+}
+
+#timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 2px;
+    background: repeating-linear-gradient(#cfcfcf 0 8px, transparent 8px 16px);
+    opacity: .7;
+}
+
+@media (max-width:1024px) {
+    #timeline::before {
+        display: none;
+    }
+
+    /* 你的原碼用了 .timeline::before，會失效 */
+}
+
+
+/* 3 欄：左文 / 中軸 / 右卡（第二段反轉） */
+.intro {
+    display: grid;
+    grid-template-columns: 1fr 36px 520px;
+    gap: 20px;
+    align-items: center;
+    margin: 100px;
+}
+
+.intro.alt {
+    grid-template-columns: 520px 36px 1fr;
+}
+
+.phtxt {
+    margin: 0;
+    line-height: 1.9;
+    max-width: 42ch;
+    color: black;
+}
+
+/* 段落寬度更像稿 */
+
+/* KM 垂直置中顯示在中欄 */
+.km {
+    grid-column: 2;
+    justify-self: center;
+    align-self: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    color: #ff6600;
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
+/* 圖片卡片 */
+.media {
+    /* position: relative; */
+    display: grid;
+    grid-template-rows: auto 220px;
+    /* 第1列：黑卡；第2列：圖片 */
+    width: 100%;
+    /* 跟 520px 欄寬一致 */
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .12));
+}
+
+.media img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;  
+    display: block;
+    grid-row: 2;
+           
+}
+
+.txtArea {
+    grid-row: 1;
+    position: relative;
+    /* 不要絕對定位 */
+    width: 500px;
+    height: 220px;
+    margin: 0 0 8px;
+    /* 與圖片之間留點距離 */
+    background: #111;
+    color: #fff;
+    padding: 14px 18px;
+    
+    
+    box-shadow: none;
+    /* 陰影交給 .media */
+
+    
+}
+
+.intro.alt .txtArea {
+    left: auto;
+    right: 12px;
+}
+
+/* 大號碼靠近中線（不是壓在圖片上） */
+.num {
+    position: absolute;
+    top: -32px;
+    font-size: 68px;
+    font-weight: 900;
+    line-height: 1;
+    color: #ff6600;
+}
+
+/* 右側卡：把號碼拉到卡片「外側左邊」→ 靠近中線 */
+.intro .num {
+    right: calc(100% + 12px);
+    left: auto;
+}
+
+/* 左側卡（alt）：把號碼拉到卡片「外側右邊」→ 靠近中線 */
+.intro.alt .num {
+    left: calc(100% + 12px);
+    right: auto;
+}
+
+/* 細節微調（小螢幕） */
+@media (max-width:1024px) {
+    /* .timeline::before {
+        display: none;
+    } */
+
+    .intro,
+    .intro.alt {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .km {
+        writing-mode: horizontal-tb;
+        justify-self: start;
+    }
+
+    .num {
+        top: -24px;
+        font-size: 54px;
+    }
+
+    .txtArea {
+        left: 8px;
+        right: auto;
+        bottom: 8px;
+        min-width: auto;
+    }
+
+
+    /* === 修成與示意一致（貼在最後覆蓋）=== */
+#timeline{
+  --cardW: 520px;   /* 卡片欄寬 */
+  --imgH: 260px;    /* 圖片高度（示意可改 220） */
+}
+
+/* 三欄框架：上對齊、不要多餘外邊距 */
+.intro{
+  display:grid;
+  grid-template-columns: 1fr 36px var(--cardW);
+  gap:20px;
+  align-items:flex-start;    /* ← 上緣對齊 */
+  margin:0 !important;      /* ← 移除 100px 外邊距 */
+}
+.intro.alt{
+  grid-template-columns: var(--cardW) 36px 1fr;
+}
+
+.phtxt{ margin:0; line-height:1.9; max-width:42ch; }
+
+/* 公里數在中欄垂直顯示 */
+.km{
+  grid-column:2; justify-self:center; align-self:center;
+  writing-mode:vertical-rl; text-orientation:mixed;
+  color:#ff6600; font-weight:800; letter-spacing:0;
+}
+
+/* 媒體區：上卡片、下圖片，同寬 */
+.media{
+  display:grid;
+  grid-template-rows: auto var(--imgH);
+  width:100%;                 /* 跟欄位寬一致（= --cardW） */
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.12));
+}
+
+/* 黑色資訊卡（全寬、上方） */
+.media .txtArea{
+  grid-row:1;
+  position:relative; inset:auto;    /* 清掉任何 left/right/bottom */
+  width:100%;                       /* ← 不再用 width:500px */
+  min-height:120px;                 /* 內容增減自適應高度 */
+  margin:0 0 10px;
+  background:#111; color:#fff;
+  padding:16px 18px;
+  border-radius:12px 12px 0 0;
+  box-shadow:none;
+}
+
+/* 圖片（全寬、下方） */
+.media img{
+  grid-row:2;
+  width:100%; height:var(--imgH);
+  object-fit:cover;
+  border-radius:0 0 12px 12px;
+  display:block;
+}
+
+/* 大號碼靠近中線（在卡片外側） */
+.num{ position:absolute; top:-32px; font-size:68px; font-weight:900; line-height:1; color:#ff6600; }
+.intro .num{ right:calc(100% + 12px); left:auto; }
+.intro.alt .num{ left:calc(100% + 12px); right:auto; }
+
+/* RWD：≤1024px 單欄 */
 @media (max-width:1024px){
-  .hero-grid{grid-template-columns:1fr}
-  .hero-info .meta{grid-template-columns:1fr}
-  .vlabel{right:12px;height:auto;bottom:0}
-  .stack{grid-template-rows:190px}
-  .map-card{width:min(92vw,760px);transform:translateY(10px)}
-  .timeline::before{display:none}
-  .stop,.stop.alt{grid-template-columns:1fr;gap:12px}
-  .km{writing-mode:horizontal-tb;justify-self:start}
-  .num{top:-28px;font-size:52px}
-  .mini{left:8px;right:auto;bottom:8px;min-width:auto}
+  #timeline::before{ display:none; }
+  .intro,.intro.alt{ grid-template-columns:1fr; gap:12px; }
+  .km{ writing-mode:horizontal-tb; justify-self:start; }
+  .num{ top:-24px; font-size:54px; }
+  #timeline{ --imgH: 52vw; }          /* 圖片高度隨螢幕縮放 */
+}
+
 }
 </style>
 </head>
 <body>
-  <!-- （可選）導覽列：若已有全站導覽，可移除這段 -->
-  <header id="topbar" style="position:sticky;top:0;z-index:50;background:#000;color:#fff">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;height:56px">
-      <div style="font-weight:800">酒桶理論</div>
-      <nav aria-label="主選單">
-        <ul style="display:flex;gap:24px;list-style:none;margin:0;padding:0">
-          <li><a href="#" style="color:#fff;text-decoration:none">活動首頁</a></li>
-          <li><a href="#" style="color:#fff;text-decoration:none">路跑路線</a></li>
-          <li><a href="#" style="color:#fff;text-decoration:none">酒吧導覽</a></li>
-          <li><a href="#" style="color:#fff;text-decoration:none">會員專區</a></li>
-          <li><a href="#" style="color:#fff;text-decoration:none">關於我們</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <section class="page-title"><h2>路跑路線</h2></section>
 
-  <div class="route-scope">
-    <section class="page-title"><h2>路跑路線</h2></section>
-
-    <!-- HERO -->
-    <section class="route-hero">
-      <span class="corner" aria-hidden="true"></span>
-      <div class="container hero-grid">
-        <figure class="hero-img"><img src="images/1.jpg" alt="善導寺微醺漫步"></figure>
-        <aside class="hero-info">
-          <h3>善導寺微醺漫步</h3>
-          <ul class="meta">
-            <li>起點：That Bar</li><li>終點：角落酒吧</li>
-            <li>路線總長：0.8km</li><li>酒吧／商店數量：3</li>
-          </ul>
-        </aside>
-        <div class="vlabel"><span>推薦路線</span><em>1</em></div>
+  <!-- 第三部分：時間線（交錯） -->
+  <section id="timeline" class="container">
+    <!-- 01：卡片在右側 -->
+    <article class="intro">
+      <p class="phtxt">在暖黃燈下，甬管柔唱輕撫心弦，今宵經典爵士之夜，現場薩克斯與鋼琴共舞。</p>
+      <div class="km">1.1km</div>
+      <div class="media">
+        <div class="num">01</div>
+        <div class="txtArea">
+          <h5 style="margin:.2em 0 .4em">That Bar</h5>
+          <p style="margin:0">地址：台北市大同一路 12 號 4 樓</p>
+          <p style="margin:.2em 0 0">營業時間：17:00–02:00</p>
+        </div>
+        <img src="images/bar1.jpg" alt="That Bar 吧檯內裝">
       </div>
-    </section>
+    </article>
 
-    <!-- 黑帶 + 地圖 -->
-    <section class="route-overview">
-      <div class="stack">
-        <div class="band">
-          <div class="container band-inner">
-            <h3>善導寺微醺漫步</h3>
-            <ul class="meta">
-              <li>起點：That Bar</li><li>路線總長：0.8km</li>
-              <li>終點：角落酒吧</li><li>酒吧／商店數量：3</li>
-            </ul>
-          </div>
+    <!-- 02：交錯（卡片在左側） -->
+    <article class="intro alt">
+      <div class="media">
+        <div class="num">02</div>
+        <div class="txtArea">
+          <h5 style="margin:.2em 0 .4em">Second Bar</h5>
+          <p style="margin:0">地址：—｜營業：—</p>
         </div>
-        <figure class="map-card"><img src="images/map.png" alt="路線地圖"></figure>
+        <img src="images/bar2.jpg" alt="Second Bar 吧檯內裝">
       </div>
-    </section>
+      <div class="km">1.1km</div>
+      <p class="phtxt">細品調和雞尾酒，讓律動與酒香交織；吧檯前舉杯，沉浸不朽樂章。</p>
+    </article>
 
-    <!-- 時間線 -->
-    <section class="timeline container">
-      <article class="stop">
-        <p class="lead">在暖黃燈下，甬管柔唱輕撫心弦，貝斯低吟穿越夜色。今宵經典爵士之夜，現場薩克斯與鋼琴共舞。</p>
-        <div class="km">1.1km</div>
-        <div class="media">
-          <div class="num">01</div>
-          <div class="mini"><h5>That Bar</h5><p>地址：台北市大同一路12號4樓</p><p>營業時間：17:00–02:00</p></div>
-          <img src="images/bar1.jpg" alt="That Bar 內裝">
+    <!-- 03：卡片在右側 -->
+    <article class="intro">
+      <p class="phtxt">現場薩克斯揭幕終章，Old Fashioned 與樂聲同在，替今晚收個優雅的尾。</p>
+      <div class="km">1.1km</div>
+      <div class="media">
+        <div class="num">03</div>
+        <div class="txtArea">
+          <h5 style="margin:.2em 0 .4em">Third Bar</h5>
+          <p style="margin:0">地址：—｜營業：—</p>
         </div>
-      </article>
-
-      <article class="stop alt">
-        <div class="media">
-          <div class="num">02</div>
-          <div class="mini"><h5>Second Bar</h5><p>地址：—｜營業：—</p></div>
-          <img src="images/bar1.jpg" alt="第二間酒吧">
-        </div>
-        <div class="km">1.1km</div>
-        <p class="lead">細品調和雞尾酒，讓律動與酒香交織。邀您於吧檯前舉杯，沉浸不朽樂章，為平凡夜晚增添光澤。</p>
-      </article>
-
-      <article class="stop">
-        <p class="lead">現場薩克斯揭幕終章，Old Fashioned 與樂聲同在，一起替今晚收個優雅的尾。</p>
-        <div class="km">1.1km</div>
-        <div class="media">
-          <div class="num">03</div>
-          <div class="mini"><h5>Third Bar</h5><p>地址：—｜營業：—</p></div>
-          <img src="images/bar1.jpg" alt="Third Bar 內裝">
-        </div>
-      </article>
-    </section>
-  </div>
+        <img src="images/bar3.jpg" alt="Third Bar 吧檯內裝">
+      </div>
+    </article>
+  </section>
 </body>
 </html>

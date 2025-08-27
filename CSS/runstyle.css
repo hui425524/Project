@@ -457,7 +457,7 @@ a:hover {
 
 .phtxt {
     margin: 0;
-    line-height: 1.9;
+    line-height: 2;
     max-width: 42ch;
     color: black;
 }
@@ -485,21 +485,21 @@ a:hover {
     width: 100%;
     /* 跟 520px 欄寬一致 */
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .12));
-    
+
 }
 
 .media img {
     position: absolute;
-    
+
     width: 360px;
     height: 240px;
-    object-fit: cover;  
+    object-fit: cover;
     display: block;
     /* grid-row: 2; */
     z-index: 3;
     top: -80px;
     left: 250px;
-           
+
 }
 
 .txtArea {
@@ -513,11 +513,11 @@ a:hover {
     background: #111;
     color: #fff;
     padding: 16px 18px 18px;
-    z-index: 2;  
+    z-index: 2;
     box-shadow: none;
     /* 陰影交給 .media */
 
-    
+
 }
 
 /* .intro.alt .txtArea {
@@ -525,11 +525,11 @@ a:hover {
     right: 12px;
 } */
 
-.txtArea h5{
+.txtArea h5 {
     font-size: 20px;
     font-weight: 700;
     margin: 100px 0px 0px;
-    
+
 }
 
 
@@ -542,6 +542,7 @@ a:hover {
     font-weight: 900;
     line-height: 1;
     color: #ff6600;
+    
 }
 
 /* 右側卡：把號碼拉到卡片「外側左邊」→ 靠近中線 */
@@ -553,7 +554,8 @@ a:hover {
 /* 左側卡（alt）：把號碼拉到卡片「外側右邊」→ 靠近中線 */
 .intro.alt .num {
     left: calc(100% + 12px);
-    right: auto;
+    right: 50px;
+
 }
 
 /* 細節微調（小螢幕） */
@@ -575,7 +577,9 @@ a:hover {
 
     .num {
         top: -24px;
+
         font-size: 54px;
+
     }
 
     .txtArea {
