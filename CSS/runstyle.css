@@ -16,6 +16,10 @@
     --space-3: 24px;
     --space-4: 32px;
     --space-6: 48px;
+
+
+    --axisW: 36px;
+    --stick-gap: 6px;
 }
 
 .container {
@@ -123,7 +127,8 @@ a:hover {
     justify-content: center;
     align-items: center;
     background: #000;
-    margin-top: 70px
+    margin-top: 70px;
+    position: relative;
 }
 
 .page-title h2 {
@@ -132,26 +137,29 @@ a:hover {
     /* clamp(20px, 2.2vw, 28px) */
     font-weight: 700;
     letter-spacing: .1em;
-    margin: 0
+    margin: 0;
 }
+
+@media (max-width: 768px) {
+    .page-title {
+        height: 100px;
+    }
+
+    .page-title h2 {
+        font-size: 32px;
+        text-align: center;
+    }
+}
+
 
 /* 區塊本體：白色背景 */
 .section-white {
-    position: relative;
     background: #fff;
     padding: 60px 0;
+    /* 23之間留一點間距 */
 }
 
-/* 右上角黑色水滴 */
-.drop_dark {
-    position: absolute;
-    right: 30px;
-    top: -20px;
-    width: 100px;
-    height: auto;
-    display: block;
-    z-index: 2;
-}
+/* 水滴原位置 */
 
 
 /* 兩欄：左圖右文 */
@@ -160,8 +168,8 @@ a:hover {
     display: grid;
     /* 容器內的直接子元素會依格線擺放，能方便地做出 2 欄、3 欄等版型。 */
 
-    grid-template-columns: 1.5fr 1fr;
-    /* 定義兩欄且會等比縮放，欄寬用 fr 表示 ； 左欄 1.2 份、右欄 1 份*/
+    grid-template-columns: 1fr 1fr;
+    /* 定義兩欄且會等比縮放，欄寬用 fr 表示 ； 左欄 1.5 份、右欄 1 份*/
     gap: 28px;
     /* column-gap 與 row-gap 都留28px */
 
@@ -169,6 +177,21 @@ a:hover {
     /* 垂直方向的對齊方式置頂 */
     /* 當左右兩欄高度不同時，兩邊子項目都會從上緣對齊，看起來更整齊。 */
 }
+
+@media (max-width: 768px) {
+    .hero-text {
+        bottom: 0;
+        margin-left: 0;
+        padding: 24px;
+        font-size: 18px;
+    }
+
+    .hero-text h3 {
+        font-size: 28px;
+        margin: 0 0 20px;
+    }
+}
+
 
 /* 左：圖片 */
 .hero-photo img {
@@ -233,6 +256,16 @@ a:hover {
     margin-top: 0px;
 }
 
+@media (max-width: 768px) {
+    .vlabel {
+        top: -120px;
+        font-size: 36px;
+    }
+
+    .vlabel p {
+        font-size: 16px;
+    }
+}
 
 .meta {
     list-style: none;
@@ -245,6 +278,25 @@ a:hover {
     line-height: 2;
 }
 
+/* 右上角黑色水滴 */
+.drop_dark {
+    position: absolute;
+    right: 30px;
+    top: -20px;
+    width: 100px;
+    height: auto;
+    display: block;
+    z-index: 20;
+    pointer-events: none;
+    /* 不擋住滑鼠事件（可選） */
+}
+@media (max-width: 768px) {
+    .drop_dark {
+        right: 10px;
+        top: 0;
+        width: 60px;
+    }
+}
 
 /* RWD */
 @media (max-width:960px) {
@@ -327,6 +379,18 @@ a:hover {
 
 }
 
+@media (max-width: 768px) {
+    .ro-band-inner {
+        padding: 20px;
+        margin: 0 20px;
+    }
+
+    .ro-band-inner h3 {
+        font-size: 24px;
+        margin: 20px 0;
+    }
+}
+
 .map-card {
     grid-area: 1/1;
     justify-self: end;
@@ -339,6 +403,14 @@ a:hover {
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, .22);
     margin: 100px;
+}
+
+@media (max-width: 768px) {
+    .map-card {
+        width: 92vw;
+        height: auto;
+        margin: 40px 0;
+    }
 }
 
 /* 左：圖片 */
@@ -419,6 +491,16 @@ a:hover {
     flex-direction: column;
     row-gap: 84px;
     /* /* 每段的上下距離  */
+
+}
+
+/* --axisW:36px; --stick-gap:6px; */
+.intro.media {
+    transform: translateX(calc(-0.5*var(--axisW) + var(--stick-gap)));
+}
+
+.intro-alt .media {
+    transform: translateX(calc(0.5*var(--axisW) - var(--stick-gap)));
 }
 
 #timeline::before {
@@ -438,7 +520,6 @@ a:hover {
         display: none;
     }
 
-    /* 你的原碼用了 .timeline::before，會失效 */
 }
 
 
@@ -446,20 +527,49 @@ a:hover {
 .intro {
     display: grid;
     grid-template-columns: 1fr 36px 520px;
+    /* 三欄：
+    左=文字(自動伸縮)；中=中線欄(36px)；右=卡片(固定520px) */
     gap: 20px;
     align-items: center;
-    margin: 100px;
+    margin: 0;
+
+    width: 90vw;
+    max-width: 960px;
+    margin: 100px auto;
 }
 
-.intro.alt {
+.intro-alt {
+
+    display: grid;
     grid-template-columns: 520px 36px 1fr;
+    gap: 20px;
+    align-items: center;
+    margin: 0;
+
+    width: 90vw;
+    max-width: 960px;
+    margin: 100px auto;
+
 }
 
 .phtxt {
-    margin: 0;
+    margin: 0px;
+    padding-right: 100px;
+
+    line-height: 2;
+    /* max-width: 42ch; */
+    color: black;
+    align-self: start;
+}
+
+.phtxt-alt {
+    margin: 0x;
+    padding-left: 100px;
     line-height: 2;
     max-width: 42ch;
     color: black;
+    align-self: start;
+
 }
 
 /* 段落寬度更像稿 */
@@ -469,7 +579,7 @@ a:hover {
     grid-column: 2;
     justify-self: center;
     align-self: center;
-    writing-mode: vertical-rl;
+    writing-mode: horizontal-tb;
     text-orientation: mixed;
     color: #ff6600;
     font-weight: 800;
@@ -478,13 +588,15 @@ a:hover {
 
 /* 圖片卡片 */
 .media {
-    /* position: relative; */
+    position: relative;
     display: grid;
     grid-template-rows: auto 220px;
     /* 第1列：黑卡；第2列：圖片 */
     width: 100%;
     /* 跟 520px 欄寬一致 */
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, .12));
+    margin: 50px;
+
 
 }
 
@@ -520,16 +632,45 @@ a:hover {
 
 }
 
-/* .intro.alt .txtArea {
+.intro_alt .txtArea {
     left: auto;
     right: 12px;
-} */
+}
 
 .txtArea h5 {
     font-size: 20px;
     font-weight: 700;
     margin: 100px 0px 0px;
 
+}
+
+@media (max-width: 768px) {
+    .media {
+        margin: 0 auto;
+        grid-template-rows: auto auto;
+    }
+
+    .media img {
+        position: static;
+        width: 100%;
+        height: auto;
+        top: auto;
+        left: auto;
+        margin-top: 16px;
+    }
+
+    .txtArea {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        margin: 0;
+    }
+
+    .phtxt,
+    .phtxt-alt {
+        padding: 0;
+        max-width: 100%;
+    }
 }
 
 
@@ -542,7 +683,17 @@ a:hover {
     font-weight: 900;
     line-height: 1;
     color: #ff6600;
-    
+    z-index: 3;
+
+}
+
+@media (max-width: 768px) {
+    .num {
+        position: static;
+        font-size: 42px;
+        margin: 8px 0;
+        text-align: center;
+    }
 }
 
 /* 右側卡：把號碼拉到卡片「外側左邊」→ 靠近中線 */
@@ -552,7 +703,7 @@ a:hover {
 }
 
 /* 左側卡（alt）：把號碼拉到卡片「外側右邊」→ 靠近中線 */
-.intro.alt .num {
+.intro_alt .num {
     left: calc(100% + 12px);
     right: 50px;
 
@@ -565,7 +716,7 @@ a:hover {
     } */
 
     .intro,
-    .intro.alt {
+    .intro_alt {
         grid-template-columns: 1fr;
         gap: 12px;
     }
@@ -588,4 +739,27 @@ a:hover {
         bottom: 8px;
         min-width: auto;
     }
+}
+
+@media (max-width: 480px) {
+
+    .hero-text,
+    .txtArea,
+    .phtxt,
+    .phtxt-alt {
+        font-size: 16px;
+        padding: 16px;
+    }
+
+    .page-title h2 {
+        font-size: 24px;
+    }
+}
+
+.intro .media {
+    transform: translateX(calc(-0.5*var(--axisW) + var(--stick-gap)));
+}
+
+.intro-alt .media {
+    transform: translateX(calc(0.5*var(--axisW) - var(--stick-gap)));
 }
