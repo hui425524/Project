@@ -3,6 +3,7 @@
     --gutter: 24px;
     --orange: #ff6600;
 
+
     /* 黑色資訊帶高度 */
     --band-h: 300px;
 
@@ -155,6 +156,8 @@ a:hover {
     background: #000;
     margin-top: 70px;
     position: relative;
+    margin-top: 70px;
+    position: relative;
 }
 
 .page-title h2 {
@@ -175,13 +178,29 @@ a:hover {
         font-size: 32px;
         text-align: center;
     }
+    margin: 0;
 }
+
+@media (max-width: 768px) {
+    .page-title {
+        height: 100px;
+    }
+
+    .page-title h2 {
+        font-size: 32px;
+        text-align: center;
+    }
+}
+
 
 
 /* 區塊本體：白色背景 */
 .section-white {
     background: #fff;
     padding: 60px 0;
+    position: relative;
+    overflow: visible;
+    /* 23之間留一點間距 */
     position: relative;
     overflow: visible;
     /* 23之間留一點間距 */
@@ -193,6 +212,8 @@ a:hover {
     display: grid;
     /* 容器內的直接子元素會依格線擺放，能方便地做出 2 欄、3 欄等版型。 */
 
+    grid-template-columns: 1fr 1fr;
+    /* 定義兩欄且會等比縮放，欄寬用 fr 表示 ； 左欄 1.5 份、右欄 1 份*/
     grid-template-columns: 1fr 1fr;
     /* 定義兩欄且會等比縮放，欄寬用 fr 表示 ； 左欄 1.5 份、右欄 1 份*/
     gap: 28px;
@@ -531,6 +552,14 @@ a:hover {
     }
 }
 
+@media (max-width: 768px) {
+    .map-card {
+        width: 92vw;
+        height: auto;
+        margin: 40px 0;
+    }
+}
+
 /* 左：圖片 */
 .map-card img {
 
@@ -593,7 +622,7 @@ a:hover {
         padding-right: 0;
         gap: 12px;
     }
-
+s
     .ro-meta {
         gap: 8px 24px;
     }
