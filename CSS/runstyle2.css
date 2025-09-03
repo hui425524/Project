@@ -1,53 +1,3 @@
-:root {
-    --container: 1440px;
-    --gutter: 24px;
-    --orange: #ff6600;
-
-
-    /* 黑色資訊帶高度 */
-    --band-h: 300px;
-
-    /* 地圖卡片最大寬度 */
-    --map-w: 720px;
-
-    /* 通用圓角 */
-    --radius: 14px;
-    --r: 16px;
-    /* 通用圓角 */
-    --space-2: 16px;
-    --space-3: 24px;
-    --space-4: 32px;
-    --space-6: 48px;
-
-
-    --axisW: 36px;
-    --stick-gap: 6px;
-
-    --cardW: 520px;
-    /* 黑色資訊卡寬 */
-    --cardH: 220px;
-    /* 黑色資訊卡高 */
-    --photoW: 360px;
-    /* 照片寬 */
-    --photoH: 240px;
-    /* 照片高 */
-    --photoTop: -80px;
-    /* 照片向上覆蓋量(負數=往上) */
-    --photoRight: -20px;
-    /* 照片向右外推(負數=超出右邊一點) */
-}
-
-/* //RWD
---mediaSm: max-width:640px
-$mediaMd: "max-width:820px";
-$media970: "max-width:970px";
-
-// 這個尺寸以上的就使用這個!
-$media971:"min-width:971px";
-
-
-//z-index
-$z-ex: 99999; */
 
 .container {
     max-width: var(--container);
@@ -58,6 +8,8 @@ $z-ex: 99999; */
 /* 固定導覽列時，錨點不被遮 */
 section {
     scroll-margin-top: 96px;
+    background-color: #111;
+    color: white;
 }
 
 html {
@@ -66,9 +18,7 @@ html {
 
 body {
     margin: 0;
-    font-family: 'Microsoft JhengHei', sans-serif;
-    background-color: #111;
-    color: white;
+    font-family: 'Microsoft JhengHei', sans-serif;    
 }
 
 
@@ -147,20 +97,19 @@ a:hover {
 
 /* 開始------- */
 
-.page-title {
+.cpage-title {
     width: 100%;
     height: 160px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #000;
-    margin-top: 70px;
+    margin-top: 56px;
     position: relative;
-    
-
+   
 }
 
-.page-title h2 {
+.cpage-title h2 {
     color: #fff;
     font-size: 4rem;
     /* 48px clamp(20px, 2.2vw, 28px) */
@@ -170,11 +119,11 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .page-title {
+    .cpage-title {
         height: 100px;
     }
 
-    .page-title h2 {
+    .cpage-title h2 {
         font-size: 32px;
         text-align: center;
     }
@@ -182,11 +131,11 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .page-title {
+    .cpage-title {
         height: 100px;
     }
 
-    .page-title h2 {
+    .cpage-title h2 {
         font-size: 32px;
         text-align: center;
     }
@@ -195,7 +144,7 @@ a:hover {
 
 
 /* 區塊本體：白色背景 */
-.section-white {
+.csection-white {
     background: #fff;
     padding: 60px 0;
     position: relative;
@@ -207,7 +156,7 @@ a:hover {
 }
 
 /* 兩欄：左圖右文 */
-.hero-grid {
+.chero-grid {
 
     display: grid;
     /* 容器內的直接子元素會依格線擺放，能方便地做出 2 欄、3 欄等版型。 */
@@ -226,30 +175,30 @@ a:hover {
 }
 
 @media (max-width: 960px) {
-    .hero-grid {
+    .chero-grid {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 768px) {
-    .hero-grid {
+    .chero-grid {
         grid-template-columns: 1fr;
     }
 
-    .hero-text {
+    .chero-text {
         bottom: 0;
         margin-top: 0;
         padding: 24px;
         font-size: 18px;
     }
 
-    .hero-text h3 {
+    .chero-text h3 {
         font-size: 22px;
         /* margin: 0 0 20px; */
         margin-bottom: 16px;
     }
 
-    .meta {
+    .cmeta {
         grid-template-columns: 1fr;
         /* 每行佔一整行，避免壓縮 */
         gap: 8px;
@@ -257,7 +206,7 @@ a:hover {
         line-height: 1;
     }
 
-    .vlabel {
+    .cvlabel {
         position: static;
         /* 取消浮動位置 */
         writing-mode: horizontal-tb;
@@ -266,7 +215,7 @@ a:hover {
         margin-top: 20px auto 0;
     }
 
-    .vlabel p {
+    .cvlabel p {
         display: inline-block;
         font-size: 16px;
     }
@@ -276,7 +225,7 @@ a:hover {
 
 
 /* 左：圖片 */
-.hero-photo img {
+.chero-photo img {
     width: 100%;
     /* 圖片寬度撐滿它的父容器（通常就是左欄） */
     aspect-ratio: 16/9;
@@ -291,14 +240,14 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .hero-photo img {
+    .chero-photo img {
         margin-top: 40px;
         /* 手機上讓圖片往下 */
     }
 }
 
 /* 右：文字卡內文 */
-.hero-text {
+.chero-text {
     position: relative;
     background: #fff;
 
@@ -311,7 +260,7 @@ a:hover {
 
 
 /* 文字卡標題 */
-.hero-text h3 {
+.chero-text h3 {
     margin: 0 10px 30px;
     font-size: 36px;
     font-weight: 700;
@@ -328,7 +277,7 @@ a:hover {
 }
 
 /* 右側直排「推薦路線 1」----------------------------------- */
-.vlabel {
+.cvlabel {
     position: absolute;
     right: 200px;
     top: 0px;
@@ -343,7 +292,7 @@ a:hover {
 
 }
 
-.vlabel p {
+.cvlabel p {
     writing-mode: horizontal-tb;
     color: #6b7280;
     font-weight: 600;
@@ -352,7 +301,7 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .vlabel {
+    .cvlabel {
         /* position: static; */
         top: 0px;
         padding: 0px;
@@ -360,7 +309,7 @@ a:hover {
         margin-right: 20px;
     }
 
-    .vlabel p {
+    .cvlabel p {
         font-size: 16px;
     }
 }
@@ -377,7 +326,7 @@ a:hover {
   }
 } */
 
-.meta {
+.cmeta {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -390,7 +339,7 @@ a:hover {
 
 
 /* 右上角黑色水滴 */
-.drop_dark {
+.cdrop_dark {
     position: absolute;
     right: 0px;
     top: 0px;
@@ -427,15 +376,15 @@ a:hover {
 
 /* RWD */
 @media (max-width:960px) {
-    .hero-grid {
+    .chero-grid {
         grid-template-columns: 1fr;
     }
 
-    .vlabel {
+    .cvlabel {
         right: 12px;
     }
 
-    .meta {
+    .cmeta {
         grid-template-columns: 1fr;
     }
 }
@@ -443,7 +392,7 @@ a:hover {
 /* 第二部分：路線總覽（黑色資訊帶 + 疊圖）  */
 
 /* 地圖區塊背景 */
-.section-mapArea {
+.csection-mapArea {
     background: #fff;
     color: #000;
     padding: 56px 0 96px;
@@ -454,7 +403,7 @@ a:hover {
 /* 疊放容器：同一格疊兩層（黑帶 + 地圖卡） */
 
 
-.ro-stack {
+.cro-stack {
     display: grid;
     /* grid-template-columns: 1fr; */
     grid-template-rows: var(--band-h);
@@ -463,14 +412,14 @@ a:hover {
 }
 
 /* 黑色資訊帶（跨全寬） */
-.ro-band {
+.cro-band {
     grid-area: 1/1;
     width: 100%;
     height: var(--band-h);
     background: #000;
 }
 
-.ro-band-inner {
+.cro-band-inner {
     height: 100%;
     color: #fff;
     display: grid;
@@ -486,7 +435,7 @@ a:hover {
     /* ← 預留地圖空間 */
 }
 
-.ro-band-inner h3 {
+.cro-band-inner h3 {
     margin: 60px 20px 0px;
     font-size: 36px;
     /*  clamp(22px, 2.2vw, 28px) */
@@ -494,7 +443,7 @@ a:hover {
     letter-spacing: .01em;
 }
 
-.ro-meta {
+.cro-meta {
     list-style: none;
     margin: 0;
     padding: 30px 30px 50px;
@@ -508,37 +457,37 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .ro-band-inner {
+    .cro-band-inner {
         padding: 20px;
         margin: 0 20px;
     }
 
-    .ro-band-inner h3 {
+    .cro-band-inner h3 {
         font-size: 24px;
         margin: 20px 0;
     }
 }
 
 @media (max-width: 900px) {
-    .ro-band-inner {
+    .cro-band-inner {
         padding-right: 0;
     }
 
-    .map-card {
+    .cmap-card {
         width: 92vw;
         height: auto;
         margin: 40px 0 0;
         justify-self: center;
     }
 
-    .ro-meta {
+    .cro-meta {
         grid-template-columns: 1fr;
     }
 
     /* 如果需要，手機改成單欄，避免擠在右邊 */
 }
 
-.map-card {
+.cmap-card {
     grid-area: 1/1;
     justify-self: end;
 
@@ -553,7 +502,7 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .map-card {
+    .cmap-card {
         width: 92vw;
         height: auto;
         margin: 40px 0;
@@ -561,7 +510,7 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .map-card {
+    .cmap-card {
         width: 92vw;
         height: auto;
         margin: 40px 0;
@@ -569,7 +518,7 @@ a:hover {
 }
 
 /* 左：圖片 */
-.map-card img {
+.cmap-card img {
 
     width: 100%;
     height: 100%;
@@ -590,7 +539,7 @@ a:hover {
         --map-w: 740px;
     }
 
-    .ro-band-inner {
+    .cro-band-inner {
         grid-template-columns: 1fr;
         align-items: center;
     }
@@ -602,11 +551,11 @@ a:hover {
         --map-w: 92vw;
     }
 
-    .ro-meta {
+    .cro-meta {
         grid-template-columns: 1fr;
     }
 
-    .section--overview {
+    .csection--overview {
         padding-bottom: 72px;
     }
 }
@@ -620,18 +569,18 @@ a:hover {
 } */
 
 @media (max-width: 900px) {
-    .section-mapArea {
+    .csection-mapArea {
         --mapW: 92vw;
         --mapH: 56vw;
         --gap: 0px;
     }
 
-    .ro-band-inner {
+    .cro-band-inner {
         padding-right: 0;
         gap: 12px;
     }
 s
-    .ro-meta {
+    .cro-meta {
         gap: 8px 24px;
     }
 }
@@ -664,8 +613,8 @@ s
 }
 
 /* 3 欄：左文 / 中軸 / 右卡（第二段反轉） */
-.intro,
-.intro-alt {
+.cintro,
+.cintro-alt {
     display: grid;
     align-items: center;
     width: min(90vw, 960px);
@@ -673,16 +622,16 @@ s
     gap: 20px;
 }
 
-.intro {
+.cintro {
     grid-template-columns: 1fr var(--axisW) var(--cardW)
 }
 
-.intro-alt {
+.cintro-alt {
     grid-template-columns: var(--cardW) var(--axisW) 1fr
 }
 
 /* 中欄 km */
-.km {
+.ckm {
     grid-column: 2;
     justify-self: center;
     align-self: center;
@@ -692,8 +641,8 @@ s
 }
 
 /* 文字段落（左右僅留一處差異） */
-.phtxt,
-.phtxt-alt {
+.cphtxt,
+.cphtxt-alt {
     margin: 0;
     line-height: 2;
     max-width: 42ch;
@@ -705,7 +654,7 @@ s
 .intro-alt .phtxt-alt{padding-left:100px} */
 
 /* 卡片與疊圖（共用） */
-.media {
+.cmedia {
     position: relative;
     display: grid;
     grid-template-rows: auto 220px;
@@ -715,7 +664,7 @@ s
     margin: 50px 0;
 }
 
-.media img {
+.cmedia img {
     position: absolute;
     top: -80px;
     width: 360px;
@@ -726,7 +675,7 @@ s
     /* 右側卡預設：圖疊在黑卡右上 */
 }
 
-.txtArea {
+.ctxtArea {
     grid-row: 1;
     position: relative;
     width: 500px;
@@ -739,14 +688,14 @@ s
     box-shadow: none;
 }
 
-.txtArea h5 {
+.ctxtArea h5 {
     font-size: 20px;
     font-weight: 700;
     margin: 100px 0 0
 }
 
 /* 大號碼 */
-.num {
+.cnum {
     position: absolute;
     top: -32px;
     font-size: 68px;
@@ -757,37 +706,37 @@ s
 }
 
 /* .intro .num{right:calc(100% + 22px)} */
-.intro-alt .num {
+.cintro-alt .num {
     left: calc(100% - 80px)
 }
 
 /* 盒子貼中線的位移量：中線一半 + column-gap - 想留的縫隙 */
-.intro .media,
-.intro-alt .media {
+.cintro .media,
+.cintro-alt .media {
     --snap: calc(0.5 * var(--axisW) + var(--col-gap) - var(--stick-gap));
 }
 
 /* 右側卡往左、左側卡往右 */
-.intro .media {
+.cintro .media {
     transform: translateX(calc(-1 * var(--snap)));
 }
 
-.intro-alt .media {
+.cintro-alt .media {
     transform: translateX(var(--snap));
 }
 
 /* 只有第二區（反轉）要把圖片壓左上角，移動圖片就好 */
-.intro-alt .media img {
+.cintro-alt .media img {
     left: -20px;
 }
 
 /* ===== 專屬：第 2 區（反轉：卡片在左；圖片壓左上角；黑卡文字靠右下） ===== */
-.intro-alt .media img {
+.cintro-alt .media img {
     left: -20px
 }
 
 /* 圖片改疊左上 */
-.intro-alt .txtArea {
+.cintro-alt .txtArea {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -802,22 +751,22 @@ s
 /* RWD */
 @media (max-width:1024px) {
 
-    .intro,
-    .intro-alt {
+    .cintro,
+    .cintro-alt {
         grid-template-columns: 1fr;
         gap: 12px
     }
 
-    .km {
+    .ckm {
         justify-self: start
     }
 
-    .num {
+    .cnum {
         top: -24px;
         font-size: 54px
     }
 
-    .txtArea {
+    .ctxtArea {
         left: 8px;
         right: auto;
         bottom: 8px;
@@ -826,20 +775,20 @@ s
 }
 
 @media (max-width:768px) {
-    .media {
+    .cmedia {
         margin: 0 auto;
         grid-template-rows: auto auto;
         transform: none
     }
 
-    .media img {
+    .cmedia img {
         position: static;
         width: 100%;
         height: auto;
         margin-top: 16px
     }
 
-    .txtArea {
+    .ctxtArea {
         width: 100%;
         height: auto;
         padding: 20px;
@@ -847,8 +796,8 @@ s
         right: auto
     }
 
-    .phtxt,
-    .phtxt-alt {
+    .cphtxt,
+    .cphtxt-alt {
         padding: 0;
         max-width: 100%
     }
@@ -856,9 +805,9 @@ s
 
 @media (max-width:480px) {
 
-    .txtArea,
-    .phtxt,
-    .phtxt-alt {
+    .ctxtArea,
+    .cphtxt,
+    .cphtxt-alt {
         font-size: 16px;
         padding: 16px
     }
@@ -866,23 +815,23 @@ s
 
 
 @media (max-width: 768px) {
-    .ro-band-inner {
+    .cro-band-inner {
         padding: 20px;
         margin: 0 20px;
     }
 
-    .ro-band-inner h3 {
+    .cro-band-inner h3 {
         font-size: 24px;
         margin: 20px 0;
     }
 
-    .map-card {
+    .cmap-card {
         width: 92vw;
         height: auto;
         margin: 40px 0;
     }
 
-    .ro-meta {
+    .cro-meta {
         grid-template-columns: 1fr;
         gap: 8px 24px;
     }
